@@ -1,0 +1,19 @@
+name: Ali-Bot
+on:
+  schedule:
+    - cron: '*/30 * * * *'  # run every 30 minutes
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - run: pip install -r requirements.txt
+      - run: python ali_flash_bot.py
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          AE_APP_KEY: ${{ secrets.AE_APP_KEY }}
+          AE_APP_SECRET: ${{ secrets.AE_APP_SECRET }}
